@@ -1,0 +1,29 @@
+From 0bf7604f72f2c7039176969081f759679a2d6ec4 Mon Sep 17 00:00:00 2001
+From: Thiago Macieira <thiago.macieira@intel.com>
+Date: Sun, 5 Aug 2018 09:37:13 -0700
+Subject: [PATCH 1/2] Add more autoconf-compatibility options
+
+---
+ configure.py | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/configure.py b/configure.py
+index b09f07bb5..43a60b703 100755
+--- a/configure.py
++++ b/configure.py
+@@ -591,7 +591,11 @@ def process_command_line(args): # pylint: disable=too-many-locals
+         'psdir',
+         'sbindir',
+         'sharedstatedir',
+-        'sysconfdir'
++        'sysconfdir',
++        'host',
++        'target',
++        'build',
++        'program-prefix'
+         ]
+ 
+     for opt in compat_with_autoconf_options:
+-- 
+2.18.0
+

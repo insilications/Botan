@@ -1,0 +1,24 @@
+From f72696ab904893420463b3ba80e647e3ee430ae7 Mon Sep 17 00:00:00 2001
+From: Thiago Macieira <thiago.macieira@intel.com>
+Date: Sun, 5 Aug 2018 11:07:56 -0700
+Subject: [PATCH 2/2] Enable genentropy(3) on Linux
+
+---
+ src/build-data/os/linux.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/build-data/os/linux.txt b/src/build-data/os/linux.txt
+index 6f4f3d644..de8a4b09d 100644
+--- a/src/build-data/os/linux.txt
++++ b/src/build-data/os/linux.txt
+@@ -6,6 +6,7 @@ posix1
+ posix_mlock
+ 
+ dev_random
++getentropy
+ proc_fs
+ clock_gettime
+ getauxval
+-- 
+2.18.0
+
