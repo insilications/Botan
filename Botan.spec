@@ -6,17 +6,17 @@
 #
 Name     : Botan
 Version  : 2.8.0
-Release  : 2
+Release  : 3
 URL      : https://botan.randombit.net/releases/Botan-2.8.0.tgz
 Source0  : https://botan.randombit.net/releases/Botan-2.8.0.tgz
 Source99 : https://botan.randombit.net/releases/Botan-2.8.0.tgz.asc
 Summary  : Crypto and TLS for C++11
 Group    : Development/Tools
 License  : BSD-2-Clause
-Requires: Botan-bin
-Requires: Botan-lib
-Requires: Botan-python
-Requires: Botan-license
+Requires: Botan-bin = %{version}-%{release}
+Requires: Botan-lib = %{version}-%{release}
+Requires: Botan-license = %{version}-%{release}
+Requires: Botan-python = %{version}-%{release}
 BuildRequires : buildreq-configure
 BuildRequires : bzip2-dev
 BuildRequires : openssl-dev
@@ -30,6 +30,14 @@ Botan: Crypto and TLS for Modern C++
 ========================================
 Botan (Japanese for peony flower) is a C++ cryptography library released under the
 permissive `Simplified BSD <https://botan.randombit.net/license.txt>`_ license.
+
+%package abi
+Summary: abi components for the Botan package.
+Group: Default
+
+%description abi
+abi components for the Botan package.
+
 
 %package bin
 Summary: bin components for the Botan package.
@@ -98,20 +106,20 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1538595390
+export SOURCE_DATE_EPOCH=1542385402
 %configure --disable-static --enable-modules=bzip2,zlib,openssl,lzma \
 --with-debug-info \
 --disable-modules=camellia,`sed -n '1,/<prohibited>/d;/<\/prohibited>/{x;s/\n/,/gp};s/#.*//;/^$/d;H' src/build-data/policy/modern.txt`
 make  %{?_smp_mflags}
 
 %install
+export SOURCE_DATE_EPOCH=1542385402
+rm -rf %{buildroot}
 ## install_prepend content
 sed -i 's/env python/env python3/' src/scripts/install.py
 ## install_prepend end
-export SOURCE_DATE_EPOCH=1538595390
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/Botan
-cp license.txt %{buildroot}/usr/share/doc/Botan/license.txt
+mkdir -p %{buildroot}/usr/share/package-licenses/Botan
+cp license.txt %{buildroot}/usr/share/package-licenses/Botan/license.txt
 %make_install
 ## install_append content
 sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
@@ -119,6 +127,10 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 
 %files
 %defattr(-,root,root,-)
+
+%files abi
+%defattr(-,root,root,-)
+/usr/share/abi/libbotan-2.so.8.abi
 
 %files bin
 %defattr(-,root,root,-)
@@ -409,6 +421,7 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 %files doc
 %defattr(0644,root,root,0755)
 /usr/share/doc/botan-2.8.0/authors.txt
+/usr/share/doc/botan-2.8.0/license.txt
 /usr/share/doc/botan-2.8.0/manual/abi.rst
 /usr/share/doc/botan-2.8.0/manual/bigint.rst
 /usr/share/doc/botan-2.8.0/manual/block_cipher.rst
@@ -461,8 +474,7 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/doc/Botan/license.txt
-/usr/share/doc/botan-2.8.0/license.txt
+/usr/share/package-licenses/Botan/license.txt
 
 %files python
 %defattr(-,root,root,-)
