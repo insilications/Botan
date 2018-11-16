@@ -6,7 +6,7 @@
 #
 Name     : Botan
 Version  : 2.8.0
-Release  : 3
+Release  : 4
 URL      : https://botan.randombit.net/releases/Botan-2.8.0.tgz
 Source0  : https://botan.randombit.net/releases/Botan-2.8.0.tgz
 Source99 : https://botan.randombit.net/releases/Botan-2.8.0.tgz.asc
