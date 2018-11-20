@@ -6,7 +6,7 @@
 #
 Name     : Botan
 Version  : 2.8.0
-Release  : 4
+Release  : 5
 URL      : https://botan.randombit.net/releases/Botan-2.8.0.tgz
 Source0  : https://botan.randombit.net/releases/Botan-2.8.0.tgz
 Source99 : https://botan.randombit.net/releases/Botan-2.8.0.tgz.asc
@@ -30,14 +30,6 @@ Botan: Crypto and TLS for Modern C++
 ========================================
 Botan (Japanese for peony flower) is a C++ cryptography library released under the
 permissive `Simplified BSD <https://botan.randombit.net/license.txt>`_ license.
-
-%package abi
-Summary: abi components for the Botan package.
-Group: Default
-
-%description abi
-abi components for the Botan package.
-
 
 %package bin
 Summary: bin components for the Botan package.
@@ -106,14 +98,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1542385402
+export SOURCE_DATE_EPOCH=1542676391
 %configure --disable-static --enable-modules=bzip2,zlib,openssl,lzma \
 --with-debug-info \
 --disable-modules=camellia,`sed -n '1,/<prohibited>/d;/<\/prohibited>/{x;s/\n/,/gp};s/#.*//;/^$/d;H' src/build-data/policy/modern.txt`
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1542385402
+export SOURCE_DATE_EPOCH=1542676391
 rm -rf %{buildroot}
 ## install_prepend content
 sed -i 's/env python/env python3/' src/scripts/install.py
@@ -127,10 +119,6 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 
 %files
 %defattr(-,root,root,-)
-
-%files abi
-%defattr(-,root,root,-)
-/usr/share/abi/libbotan-2.so.8.abi
 
 %files bin
 %defattr(-,root,root,-)
