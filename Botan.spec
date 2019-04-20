@@ -6,7 +6,7 @@
 #
 Name     : Botan
 Version  : 2.10.0
-Release  : 7
+Release  : 8
 URL      : https://botan.randombit.net/releases/Botan-2.10.0.tgz
 Source0  : https://botan.randombit.net/releases/Botan-2.10.0.tgz
 Source99 : https://botan.randombit.net/releases/Botan-2.10.0.tgz.asc
