@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x6211EBF1EFBADFBC (jack@randombit.net)
 #
 Name     : Botan
-Version  : 2.10.0
-Release  : 8
-URL      : https://botan.randombit.net/releases/Botan-2.10.0.tgz
-Source0  : https://botan.randombit.net/releases/Botan-2.10.0.tgz
-Source99 : https://botan.randombit.net/releases/Botan-2.10.0.tgz.asc
+Version  : 2.11.0
+Release  : 9
+URL      : https://botan.randombit.net/releases/Botan-2.11.0.tar.xz
+Source0  : https://botan.randombit.net/releases/Botan-2.11.0.tar.xz
+Source99 : https://botan.randombit.net/releases/Botan-2.11.0.tar.xz.asc
 Summary  : Crypto library written in C++
 Group    : Development/Tools
 License  : BSD-2-Clause
@@ -46,6 +46,7 @@ Group: Development
 Requires: Botan-lib = %{version}-%{release}
 Requires: Botan-bin = %{version}-%{release}
 Provides: Botan-devel = %{version}-%{release}
+Requires: Botan = %{version}-%{release}
 Requires: Botan = %{version}-%{release}
 
 %description dev
@@ -87,7 +88,7 @@ python components for the Botan package.
 
 
 %prep
-%setup -q -n Botan-2.10.0
+%setup -q -n Botan-2.11.0
 %patch1 -p1
 %patch2 -p1
 
@@ -99,14 +100,22 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1555165921
+export SOURCE_DATE_EPOCH=1562030134
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static --enable-modules=bzip2,zlib,openssl,lzma \
 --with-debug-info \
 --disable-modules=camellia,`sed -n '1,/<prohibited>/d;/<\/prohibited>/{x;s/\n/,/gp};s/#.*//;/^$/d;H' src/build-data/policy/modern.txt`
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1555165921
+export SOURCE_DATE_EPOCH=1562030134
 rm -rf %{buildroot}
 ## install_prepend content
 sed -i 's/env python/env python3/' src/scripts/install.py
@@ -131,6 +140,7 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 /usr/include/botan-2/botan/aead.h
 /usr/include/botan-2/botan/aes.h
 /usr/include/botan-2/botan/alg_id.h
+/usr/include/botan-2/botan/argon2.h
 /usr/include/botan-2/botan/aria.h
 /usr/include/botan-2/botan/asn1_alt_name.h
 /usr/include/botan-2/botan/asn1_attribute.h
@@ -142,12 +152,12 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 /usr/include/botan-2/botan/assert.h
 /usr/include/botan-2/botan/atomic.h
 /usr/include/botan-2/botan/auto_rng.h
-/usr/include/botan-2/botan/b64_filt.h
 /usr/include/botan-2/botan/base32.h
 /usr/include/botan-2/botan/base58.h
 /usr/include/botan-2/botan/base64.h
 /usr/include/botan-2/botan/basefilt.h
 /usr/include/botan-2/botan/bcrypt.h
+/usr/include/botan-2/botan/bcrypt_pbkdf.h
 /usr/include/botan-2/botan/ber_dec.h
 /usr/include/botan-2/botan/bigint.h
 /usr/include/botan-2/botan/blake2b.h
@@ -167,7 +177,9 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 /usr/include/botan-2/botan/cecpq1.h
 /usr/include/botan-2/botan/cert_status.h
 /usr/include/botan-2/botan/certstor.h
+/usr/include/botan-2/botan/certstor_flatfile.h
 /usr/include/botan-2/botan/certstor_sql.h
+/usr/include/botan-2/botan/certstor_system.h
 /usr/include/botan-2/botan/chacha.h
 /usr/include/botan-2/botan/chacha20poly1305.h
 /usr/include/botan-2/botan/chacha_rng.h
@@ -230,7 +242,6 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 /usr/include/botan-2/botan/hash.h
 /usr/include/botan-2/botan/hash_id.h
 /usr/include/botan-2/botan/hex.h
-/usr/include/botan-2/botan/hex_filt.h
 /usr/include/botan-2/botan/hkdf.h
 /usr/include/botan-2/botan/hmac.h
 /usr/include/botan-2/botan/hmac_drbg.h
@@ -339,6 +350,7 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 /usr/include/botan-2/botan/sm2_enc.h
 /usr/include/botan-2/botan/sm3.h
 /usr/include/botan-2/botan/sm4.h
+/usr/include/botan-2/botan/sodium.h
 /usr/include/botan-2/botan/sp800_108.h
 /usr/include/botan-2/botan/sp800_56a.h
 /usr/include/botan-2/botan/sp800_56c.h
@@ -410,59 +422,73 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 
 %files doc
 %defattr(0644,root,root,0755)
-/usr/share/doc/botan-2.10.0/authors.txt
-/usr/share/doc/botan-2.10.0/license.txt
-/usr/share/doc/botan-2.10.0/manual/abi.rst
-/usr/share/doc/botan-2.10.0/manual/bigint.rst
-/usr/share/doc/botan-2.10.0/manual/block_cipher.rst
-/usr/share/doc/botan-2.10.0/manual/building.rst
-/usr/share/doc/botan-2.10.0/manual/cipher_modes.rst
-/usr/share/doc/botan-2.10.0/manual/cli.rst
-/usr/share/doc/botan-2.10.0/manual/compression.rst
-/usr/share/doc/botan-2.10.0/manual/contents.rst
-/usr/share/doc/botan-2.10.0/manual/credentials_manager.rst
-/usr/share/doc/botan-2.10.0/manual/cryptobox.rst
-/usr/share/doc/botan-2.10.0/manual/deprecated.rst
-/usr/share/doc/botan-2.10.0/manual/ecc.rst
-/usr/share/doc/botan-2.10.0/manual/ffi.rst
-/usr/share/doc/botan-2.10.0/manual/filters.rst
-/usr/share/doc/botan-2.10.0/manual/fpe.rst
-/usr/share/doc/botan-2.10.0/manual/fuzzing.rst
-/usr/share/doc/botan-2.10.0/manual/goals.rst
-/usr/share/doc/botan-2.10.0/manual/hash.rst
-/usr/share/doc/botan-2.10.0/manual/index.rst
-/usr/share/doc/botan-2.10.0/manual/kdf.rst
-/usr/share/doc/botan-2.10.0/manual/keywrap.rst
-/usr/share/doc/botan-2.10.0/manual/message_auth_codes.rst
-/usr/share/doc/botan-2.10.0/manual/otp.rst
-/usr/share/doc/botan-2.10.0/manual/packaging.rst
-/usr/share/doc/botan-2.10.0/manual/passhash.rst
-/usr/share/doc/botan-2.10.0/manual/pbkdf.rst
-/usr/share/doc/botan-2.10.0/manual/pkcs11.rst
-/usr/share/doc/botan-2.10.0/manual/psk_db.rst
-/usr/share/doc/botan-2.10.0/manual/pubkey.rst
-/usr/share/doc/botan-2.10.0/manual/python.rst
-/usr/share/doc/botan-2.10.0/manual/rng.rst
-/usr/share/doc/botan-2.10.0/manual/roadmap.rst
-/usr/share/doc/botan-2.10.0/manual/secmem.rst
-/usr/share/doc/botan-2.10.0/manual/side_channels.rst
-/usr/share/doc/botan-2.10.0/manual/srp.rst
-/usr/share/doc/botan-2.10.0/manual/stream_ciphers.rst
-/usr/share/doc/botan-2.10.0/manual/support.rst
-/usr/share/doc/botan-2.10.0/manual/tls.rst
-/usr/share/doc/botan-2.10.0/manual/tpm.rst
-/usr/share/doc/botan-2.10.0/manual/tss.rst
-/usr/share/doc/botan-2.10.0/manual/versions.rst
-/usr/share/doc/botan-2.10.0/manual/x509.rst
-/usr/share/doc/botan-2.10.0/news.txt
-/usr/share/doc/botan-2.10.0/oids.txt
-/usr/share/doc/botan-2.10.0/pgpkey.txt
-/usr/share/doc/botan-2.10.0/reading_list.txt
+/usr/share/doc/botan-2.11.0/authors.txt
+/usr/share/doc/botan-2.11.0/handbook/abi.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/bigint.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/block_cipher.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/cipher_modes.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/compression.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/contents.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/credentials_manager.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/cryptobox.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/ecc.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/ffi.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/filters.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/fpe.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/hash.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/kdf.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/keywrap.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/message_auth_codes.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/otp.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/passhash.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/pbkdf.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/pkcs11.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/psk_db.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/pubkey.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/python.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/rng.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/secmem.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/srp.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/stream_ciphers.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/tls.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/tpm.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/tss.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/versions.rst
+/usr/share/doc/botan-2.11.0/handbook/api_ref/x509.rst
+/usr/share/doc/botan-2.11.0/handbook/authors.txt
+/usr/share/doc/botan-2.11.0/handbook/building.rst
+/usr/share/doc/botan-2.11.0/handbook/cli.rst
+/usr/share/doc/botan-2.11.0/handbook/contents.rst
+/usr/share/doc/botan-2.11.0/handbook/credits.rst
+/usr/share/doc/botan-2.11.0/handbook/deprecated.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/configure.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/contents.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/continuous_integration.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/contributing.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/fuzzing.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/mistakes.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/oids.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/os.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/reading_list.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/release_process.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/test_framework.rst
+/usr/share/doc/botan-2.11.0/handbook/dev_ref/todo.rst
+/usr/share/doc/botan-2.11.0/handbook/goals.rst
+/usr/share/doc/botan-2.11.0/handbook/index.rst
+/usr/share/doc/botan-2.11.0/handbook/packaging.rst
+/usr/share/doc/botan-2.11.0/handbook/pgpkey.txt
+/usr/share/doc/botan-2.11.0/handbook/roadmap.rst
+/usr/share/doc/botan-2.11.0/handbook/security.rst
+/usr/share/doc/botan-2.11.0/handbook/side_channels.rst
+/usr/share/doc/botan-2.11.0/handbook/support.rst
+/usr/share/doc/botan-2.11.0/license.txt
+/usr/share/doc/botan-2.11.0/news.txt
+/usr/share/doc/botan-2.11.0/pgpkey.txt
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/libbotan-2.so.10
-/usr/lib64/libbotan-2.so.10.10.0
+/usr/lib64/libbotan-2.so.11
+/usr/lib64/libbotan-2.so.11.11.0
 
 %files license
 %defattr(0644,root,root,0755)
