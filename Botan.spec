@@ -6,11 +6,11 @@
 #
 Name     : Botan
 Version  : 2.11.0
-Release  : 9
+Release  : 10
 URL      : https://botan.randombit.net/releases/Botan-2.11.0.tar.xz
 Source0  : https://botan.randombit.net/releases/Botan-2.11.0.tar.xz
-Source99 : https://botan.randombit.net/releases/Botan-2.11.0.tar.xz.asc
-Summary  : Crypto library written in C++
+Source1 : https://botan.randombit.net/releases/Botan-2.11.0.tar.xz.asc
+Summary  : Crypto and TLS for C++11
 Group    : Development/Tools
 License  : BSD-2-Clause
 Requires: Botan-bin = %{version}-%{release}
@@ -46,7 +46,6 @@ Group: Development
 Requires: Botan-lib = %{version}-%{release}
 Requires: Botan-bin = %{version}-%{release}
 Provides: Botan-devel = %{version}-%{release}
-Requires: Botan = %{version}-%{release}
 Requires: Botan = %{version}-%{release}
 
 %description dev
@@ -99,8 +98,8 @@ ln -s configure.py configure
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1562030134
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1568067244
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -115,7 +114,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1562030134
+export SOURCE_DATE_EPOCH=1568067244
 rm -rf %{buildroot}
 ## install_prepend content
 sed -i 's/env python/env python3/' src/scripts/install.py
