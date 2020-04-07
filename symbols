@@ -252,6 +252,8 @@ libbotan-2.so.13:_ZN5Botan12aont_packageERNS_21RandomNumberGeneratorEPNS_11Block
 libbotan-2.so.13:_ZN5Botan12bcrypt_pbkdfEPhmPKcmPKhmm
 libbotan-2.so.13:_ZN5Botan12check_bcryptERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES7_
 libbotan-2.so.13:_ZN5Botan12ct_divide_u8ERKNS_6BigIntEhRS0_Rh
+libbotan-2.so.13:_ZN5Botan12newhope_polyD1Ev
+libbotan-2.so.13:_ZN5Botan12newhope_polyD2Ev
 libbotan-2.so.13:_ZN5Botan12pkcs_hash_idERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
 libbotan-2.so.13:_ZN5Botan12random_primeERNS_21RandomNumberGeneratorEmRKNS_6BigIntEmmm
 libbotan-2.so.13:_ZN5Botan12replace_charERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEcc
@@ -1397,6 +1399,7 @@ libbotan-2.so.13:_ZN5Botan5Timer4stopEv
 libbotan-2.so.13:_ZN5Botan5Timer5startEv
 libbotan-2.so.13:_ZN5Botan6Argon2C1Ehmmm
 libbotan-2.so.13:_ZN5Botan6Argon2C2Ehmmm
+libbotan-2.so.13:_ZN5Botan6BigInt11ct_cond_addEbRKS0_
 libbotan-2.so.13:_ZN5Botan6BigInt11encode_1363EPhmRKS0_
 libbotan-2.so.13:_ZN5Botan6BigInt11encode_1363ERKS0_m
 libbotan-2.so.13:_ZN5Botan6BigInt12ct_cond_swapEbRS0_
