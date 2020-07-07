@@ -5,12 +5,12 @@
 # Source0 file verified with key 0x6211EBF1EFBADFBC (jack@randombit.net)
 #
 Name     : Botan
-Version  : 2.14.0
-Release  : 16
-URL      : https://botan.randombit.net/releases/Botan-2.14.0.tar.xz
-Source0  : https://botan.randombit.net/releases/Botan-2.14.0.tar.xz
-Source1  : https://botan.randombit.net/releases/Botan-2.14.0.tar.xz.asc
-Summary  : Crypto library written in C++
+Version  : 2.15.0
+Release  : 17
+URL      : https://botan.randombit.net/releases/Botan-2.15.0.tar.xz
+Source0  : https://botan.randombit.net/releases/Botan-2.15.0.tar.xz
+Source1  : https://botan.randombit.net/releases/Botan-2.15.0.tar.xz.asc
+Summary  : Crypto and TLS for C++11
 Group    : Development/Tools
 License  : BSD-2-Clause
 Requires: Botan-bin = %{version}-%{release}
@@ -46,7 +46,6 @@ Requires: Botan-lib = %{version}-%{release}
 Requires: Botan-bin = %{version}-%{release}
 Provides: Botan-devel = %{version}-%{release}
 Requires: Botan = %{version}-%{release}
-Requires: Botan = %{version}-%{release}
 
 %description dev
 dev components for the Botan package.
@@ -78,8 +77,8 @@ license components for the Botan package.
 
 
 %prep
-%setup -q -n Botan-2.14.0
-cd %{_builddir}/Botan-2.14.0
+%setup -q -n Botan-2.15.0
+cd %{_builddir}/Botan-2.15.0
 %patch1 -p1
 %patch2 -p1
 
@@ -91,15 +90,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1586270061
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1594139272
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static --enable-modules=bzip2,zlib,openssl,lzma \
 --with-debug-info \
@@ -107,13 +105,13 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1586270061
+export SOURCE_DATE_EPOCH=1594139272
 rm -rf %{buildroot}
 ## install_prepend content
 sed -i 's/env python/env python3/' src/scripts/install.py
 ## install_prepend end
 mkdir -p %{buildroot}/usr/share/package-licenses/Botan
-cp %{_builddir}/Botan-2.14.0/license.txt %{buildroot}/usr/share/package-licenses/Botan/a5006686eab9488f49c4064f52a7a98250a7ec19
+cp %{_builddir}/Botan-2.15.0/license.txt %{buildroot}/usr/share/package-licenses/Botan/a5006686eab9488f49c4064f52a7a98250a7ec19
 %make_install
 ## install_append content
 sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
@@ -312,6 +310,7 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 /usr/include/botan-2/botan/polyn_gf2m.h
 /usr/include/botan-2/botan/pow_mod.h
 /usr/include/botan-2/botan/prf_tls.h
+/usr/include/botan-2/botan/processor_rng.h
 /usr/include/botan-2/botan/psk_db.h
 /usr/include/botan-2/botan/psk_db_sql.h
 /usr/include/botan-2/botan/pssr.h
@@ -418,76 +417,76 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 
 %files doc
 %defattr(0644,root,root,0755)
-/usr/share/doc/botan-2.14.0/authors.txt
-/usr/share/doc/botan-2.14.0/handbook/abi.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/bigint.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/block_cipher.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/cipher_modes.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/compression.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/contents.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/credentials_manager.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/cryptobox.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/ecc.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/env_vars.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/ffi.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/filters.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/fpe.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/hash.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/kdf.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/keywrap.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/message_auth_codes.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/otp.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/passhash.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/pbkdf.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/pkcs11.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/psk_db.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/pubkey.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/python.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/rng.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/roughtime.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/secmem.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/srp.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/stream_ciphers.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/tls.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/tpm.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/tss.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/versions.rst
-/usr/share/doc/botan-2.14.0/handbook/api_ref/x509.rst
-/usr/share/doc/botan-2.14.0/handbook/authors.txt
-/usr/share/doc/botan-2.14.0/handbook/building.rst
-/usr/share/doc/botan-2.14.0/handbook/cli.rst
-/usr/share/doc/botan-2.14.0/handbook/contents.rst
-/usr/share/doc/botan-2.14.0/handbook/credits.rst
-/usr/share/doc/botan-2.14.0/handbook/deprecated.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/configure.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/contents.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/continuous_integration.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/contributing.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/fuzzing.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/mistakes.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/oids.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/os.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/reading_list.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/release_process.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/test_framework.rst
-/usr/share/doc/botan-2.14.0/handbook/dev_ref/todo.rst
-/usr/share/doc/botan-2.14.0/handbook/goals.rst
-/usr/share/doc/botan-2.14.0/handbook/index.rst
-/usr/share/doc/botan-2.14.0/handbook/old_news.rst
-/usr/share/doc/botan-2.14.0/handbook/packaging.rst
-/usr/share/doc/botan-2.14.0/handbook/pgpkey.txt
-/usr/share/doc/botan-2.14.0/handbook/roadmap.rst
-/usr/share/doc/botan-2.14.0/handbook/security.rst
-/usr/share/doc/botan-2.14.0/handbook/side_channels.rst
-/usr/share/doc/botan-2.14.0/handbook/support.rst
-/usr/share/doc/botan-2.14.0/license.txt
-/usr/share/doc/botan-2.14.0/news.txt
-/usr/share/doc/botan-2.14.0/pgpkey.txt
+/usr/share/doc/botan-2.15.0/authors.txt
+/usr/share/doc/botan-2.15.0/handbook/abi.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/bigint.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/block_cipher.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/cipher_modes.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/compression.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/contents.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/credentials_manager.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/cryptobox.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/ecc.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/env_vars.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/ffi.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/filters.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/fpe.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/hash.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/kdf.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/keywrap.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/message_auth_codes.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/otp.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/passhash.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/pbkdf.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/pkcs11.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/psk_db.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/pubkey.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/python.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/rng.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/roughtime.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/secmem.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/srp.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/stream_ciphers.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/tls.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/tpm.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/tss.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/versions.rst
+/usr/share/doc/botan-2.15.0/handbook/api_ref/x509.rst
+/usr/share/doc/botan-2.15.0/handbook/authors.txt
+/usr/share/doc/botan-2.15.0/handbook/building.rst
+/usr/share/doc/botan-2.15.0/handbook/cli.rst
+/usr/share/doc/botan-2.15.0/handbook/contents.rst
+/usr/share/doc/botan-2.15.0/handbook/credits.rst
+/usr/share/doc/botan-2.15.0/handbook/deprecated.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/configure.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/contents.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/continuous_integration.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/contributing.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/fuzzing.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/mistakes.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/oids.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/os.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/reading_list.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/release_process.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/test_framework.rst
+/usr/share/doc/botan-2.15.0/handbook/dev_ref/todo.rst
+/usr/share/doc/botan-2.15.0/handbook/goals.rst
+/usr/share/doc/botan-2.15.0/handbook/index.rst
+/usr/share/doc/botan-2.15.0/handbook/old_news.rst
+/usr/share/doc/botan-2.15.0/handbook/packaging.rst
+/usr/share/doc/botan-2.15.0/handbook/pgpkey.txt
+/usr/share/doc/botan-2.15.0/handbook/roadmap.rst
+/usr/share/doc/botan-2.15.0/handbook/security.rst
+/usr/share/doc/botan-2.15.0/handbook/side_channels.rst
+/usr/share/doc/botan-2.15.0/handbook/support.rst
+/usr/share/doc/botan-2.15.0/license.txt
+/usr/share/doc/botan-2.15.0/news.txt
+/usr/share/doc/botan-2.15.0/pgpkey.txt
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/libbotan-2.so.13
-/usr/lib64/libbotan-2.so.13.14.0
+/usr/lib64/libbotan-2.so.15
+/usr/lib64/libbotan-2.so.15.15.0
 
 %files license
 %defattr(0644,root,root,0755)
