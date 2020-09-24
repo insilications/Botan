@@ -6,7 +6,7 @@
 #
 Name     : Botan
 Version  : 2.15.0
-Release  : 17
+Release  : 18
 URL      : https://botan.randombit.net/releases/Botan-2.15.0.tar.xz
 Source0  : https://botan.randombit.net/releases/Botan-2.15.0.tar.xz
 Source1  : https://botan.randombit.net/releases/Botan-2.15.0.tar.xz.asc
