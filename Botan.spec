@@ -6,7 +6,7 @@
 #
 Name     : Botan
 Version  : 2.17.2
-Release  : 23
+Release  : 24
 URL      : https://botan.randombit.net/releases/Botan-2.17.2.tar.xz
 Source0  : https://botan.randombit.net/releases/Botan-2.17.2.tar.xz
 Source1  : https://botan.randombit.net/releases/Botan-2.17.2.tar.xz.asc
@@ -90,7 +90,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1605282922
+export SOURCE_DATE_EPOCH=1607977250
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -105,7 +105,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1605282922
+export SOURCE_DATE_EPOCH=1607977250
 rm -rf %{buildroot}
 ## install_prepend content
 sed -i 's/env python/env python3/' src/scripts/install.py
@@ -119,7 +119,7 @@ sed -e '1{/^#!/d}' -i %{buildroot}/usr/lib64/python*/site-packages/botan2.py
 
 %files
 %defattr(-,root,root,-)
-/usr/lib64/python3.8/site-packages/botan2.py
+/usr/lib64/python3.9/site-packages/botan2.py
 
 %files bin
 %defattr(-,root,root,-)
