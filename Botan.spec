@@ -6,7 +6,7 @@
 #
 Name     : Botan
 Version  : 2.17.2
-Release  : 25
+Release  : 26
 URL      : https://botan.randombit.net/releases/Botan-2.17.2.tar.xz
 Source0  : https://botan.randombit.net/releases/Botan-2.17.2.tar.xz
 Source1  : https://botan.randombit.net/releases/Botan-2.17.2.tar.xz.asc
