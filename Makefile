@@ -1,5 +1,5 @@
 PKG_NAME := Botan
-URL = https://github.com/randombit/botan.git
+URL = https://botan.randombit.net/releases/Botan-2.18.2.tar.xz
 ARCHIVES = 
 ARCHIVES_GIT = 
 
