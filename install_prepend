@@ -1,1 +1,1 @@
-sed -i 's/env python/env python3/' src/scripts/install.py
+# sed -i 's/env python/env python3/' src/scripts/install.py
